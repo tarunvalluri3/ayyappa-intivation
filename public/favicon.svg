@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs><filter id="blur" x="-150%" y="-150%" width="400%" height="400%"><feGaussianBlur stdDeviation="9"/></filter></defs>
+  <rect width="64" height="64" rx="14" fill="#141210"/>
+  
+  <g transform="translate(5 8) scale(0.45)">
+    <circle cx="60" cy="32" r="30" fill="#E8963C" opacity="0.5" filter="url(#blur)"/>
+    <g fill="none" stroke="#B8872B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M16 58 H104"/><path d="M16 58 C18 78 38 91 60 91 C82 91 102 78 104 58"/><path d="M17 58 C11 58 6 54 3 46 C9 49 15 50 23 51"/><path d="M103 58 C109 58 114 54 117 46 C111 49 105 50 97 51"/><path d="M52 58 L54 51 H66 L68 58"/><path d="M46 91 L42 100 H78 L74 91"/><path d="M36 100 H84"/><path d="M32 68 Q60 80 88 68"/>
+    </g>
+    <path d="M60 50 C49 40 52 26 60 10 C68 26 71 40 60 50 Z" fill="#E8963C"/>
+    <path d="M60 48 C55 42 56 34 60 25 C64 34 65 42 60 48 Z" fill="#F8D9A0"/>
+  </g>
+</svg>

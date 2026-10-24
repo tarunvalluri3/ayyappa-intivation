@@ -1,0 +1,197 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ fonts */
+/* Latin subsets only, self-hosted from the @fontsource packages. */
+@font-face {
+  font-family: "Marcellus";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../node_modules/@fontsource/marcellus/files/marcellus-latin-400-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Inter Variable";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2") format("woff2-variations");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ----------------------------------------------------------------- tokens */
+@theme {
+  --color-ink: #141210;
+  --color-ivory: #f7f2e8;
+  --color-ivory-dim: #efe7d6;
+  --color-gold: #b8872b;
+  --color-gold-lo: #8a6420;
+  --color-vermilion: #9c2b20;
+  --color-leaf: #1e4034;
+  --color-flame: #e8963c;
+
+  --font-display: "Marcellus", "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Inter Variable", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* Colours that follow the dawn: GSAP animates these on <html> as you scroll. */
+:root {
+  --page-bg: rgb(20, 18, 16);
+  --fg: rgb(247, 242, 232);
+  --accent: rgb(184, 135, 43);
+}
+@theme inline {
+  --color-page: var(--page-bg);
+  --color-fg: var(--fg);
+  --color-fg-dim: color-mix(in srgb, var(--fg) 68%, transparent);
+  --color-accent: var(--accent);
+}
+
+/* ------------------------------------------------------------------- base */
+html {
+  background: var(--page-bg);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+  min-height: 100svh;
+  background: var(--page-bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv05";
+  letter-spacing: -0.011em;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+::selection {
+  background: color-mix(in srgb, var(--color-gold) 40%, transparent);
+}
+:focus-visible {
+  outline: 1px solid var(--color-gold);
+  outline-offset: 4px;
+}
+
+/* Marcellus has a single weight: never let the browser fake a bold. */
+.font-display,
+.font-display * {
+  font-weight: 400;
+  font-synthesis: none;
+}
+
+@layer components {
+  /* Small-caps header treatment used for the invocation and labels. */
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  /* Mask-reveal wrappers: the inner span slides up from below its clip. */
+  .mask {
+    display: block;
+    overflow: clip;
+    padding: 0.1em 0 0.24em;
+    margin: -0.1em 0 -0.24em;
+  }
+  .mask > .mask-in {
+    display: block;
+  }
+}
+
+/* ----------------------------------------------------------- flame flicker */
+/* Two desynchronised loops on nested layers: a lean/stretch and an opacity shimmer. */
+@keyframes flick-a {
+  0%, 100% { transform: scaleY(1) skewX(0deg); }
+  18% { transform: scaleY(1.07) skewX(-2.2deg); }
+  37% { transform: scaleY(0.94) skewX(1.6deg); }
+  55% { transform: scaleY(1.05) skewX(-0.8deg); }
+  74% { transform: scaleY(0.97) skewX(2.4deg); }
+  88% { transform: scaleY(1.03) skewX(-1.4deg); }
+}
+@keyframes flick-b {
+  0%, 100% { opacity: 1; transform: scaleY(1) skewX(0deg); }
+  23% { opacity: 0.86; transform: scaleY(0.95) skewX(1.8deg); }
+  41% { opacity: 1; transform: scaleY(1.06) skewX(-1.2deg); }
+  67% { opacity: 0.9; transform: scaleY(0.97) skewX(0.9deg); }
+  83% { opacity: 0.97; transform: scaleY(1.04) skewX(-2deg); }
+}
+@keyframes glow-breathe {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+.flick-a,
+.flick-b {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+}
+.flicker .flick-a { animation: flick-a 2.9s ease-in-out infinite; }
+.flicker .flick-b { animation: flick-b 2.1s ease-in-out infinite; animation-delay: -0.7s; }
+.flicker .glow-pulse { animation: glow-breathe 3.3s ease-in-out infinite; }
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.fade-in {
+  animation: fade-in 0.6s ease-out both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .fade-in { animation-duration: 0.01ms; }
+}
+
+/* ------------------------------------------------------------ progress rail */
+.rail {
+  position: fixed;
+  z-index: 50;
+  pointer-events: none;
+  display: flex;
+  gap: 3px;
+  /* mobile: along the bottom edge */
+  left: 24px;
+  right: 24px;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 8px);
+  height: 2px;
+  flex-direction: row;
+}
+.rail > i {
+  position: relative;
+  flex: 1;
+  background: color-mix(in srgb, var(--color-gold) 30%, transparent);
+  overflow: hidden;
+}
+.rail > i > b {
+  position: absolute;
+  inset: 0;
+  background: var(--color-gold);
+  transform-origin: 0 50%;
+  transform: scaleX(var(--f, 0));
+}
+@media (min-width: 768px) {
+  .rail {
+    left: auto;
+    right: 20px;
+    top: 50%;
+    bottom: auto;
+    width: 2px;
+    height: min(56vh, 420px);
+    translate: 0 -50%;
+    flex-direction: column-reverse;
+  }
+  .rail > i > b {
+    transform-origin: 50% 100%;
+    transform: scaleY(var(--f, 0));
+  }
+}
+
+/* --------------------------------------------------------------- utilities */
+.hairline-border {
+  border: 1px solid color-mix(in srgb, var(--color-gold) 55%, transparent);
+}
