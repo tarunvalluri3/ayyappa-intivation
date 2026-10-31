@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { event, labels } from '../data/event';
+import { labels, mapUrl } from '../data/event';
 import { downloadIcs } from '../lib/ics';
 import { shareInvitation } from '../lib/share';
 import { CalendarPlusIcon, PinIcon, ShareIcon } from './icons';
@@ -22,7 +22,7 @@ function Label({ icon, children }: { icon: ReactNode; children: ReactNode }) {
 export function ActionButtons() {
   return (
     <div className="mx-auto flex w-full max-w-2xl gap-2 md:gap-3">
-      <a className={base} href={event.mapUrl} target="_blank" rel="noopener noreferrer">
+      <a className={base} href={mapUrl} target="_blank" rel="noopener noreferrer">
         <Label icon={<PinIcon className="size-6" />}>{labels.openMaps}</Label>
       </a>
       <button type="button" className={base} onClick={downloadIcs}>

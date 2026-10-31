@@ -1,3 +1,13 @@
+/** The venue is defined once; the Maps link is derived from it. */
+export const venue = {
+  label: 'At our residence',
+  address: '1-5-417/1, Near St Alphonsus School, Surya Nagar, Old Alwal, Secunderabad',
+} as const;
+
+/** Address-based Maps URL (works in the Android app and in in-app browsers; no share-tracking params). */
+export const mapUrl =
+  'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(venue.address);
+
 /** Single source of truth for everything printed on the invitation. */
 export const event = {
   invocation: 'Swamiye Saranam Ayyappa',
@@ -8,9 +18,6 @@ export const event = {
   host: { prefix: 'by', name: 'Vaka Rugved' },
   date: 'Sunday, 1 November 2026',
   time: '9:00 AM',
-  venueLabel: 'At our residence',
-  address: '1-5-417/1, Near St Alphonsus School, Surya Nagar, Old Alwal, Secunderabad',
-  mapUrl: 'https://maps.app.goo.gl/utjZhFsHNG83dPu89?g_st=ic',
   closing: 'Your presence will make our prayers more special.',
   signOff: 'With love & devotion',
 

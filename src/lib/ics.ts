@@ -1,4 +1,4 @@
-import { event } from '../data/event';
+import { event, mapUrl, venue } from '../data/event';
 
 const CRLF = '\r\n';
 
@@ -30,7 +30,7 @@ export function buildIcs(): string {
     '',
     event.closing,
     '',
-    `Map: ${event.mapUrl}`,
+    `Map: ${mapUrl}`,
   ].join('\n');
 
   const lines = [
@@ -45,9 +45,9 @@ export function buildIcs(): string {
     `DTSTART:${toIcsUtc(start)}`,
     `DTEND:${toIcsUtc(end)}`,
     `SUMMARY:${escapeText(event.title)}`,
-    `LOCATION:${escapeText(`${event.venueLabel}, ${event.address}`)}`,
+    `LOCATION:${escapeText(`${venue.label}, ${venue.address}`)}`,
     `DESCRIPTION:${escapeText(description)}`,
-    `URL:${event.mapUrl}`,
+    `URL:${mapUrl}`,
     'STATUS:CONFIRMED',
     'BEGIN:VALARM',
     'ACTION:DISPLAY',

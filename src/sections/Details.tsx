@@ -1,5 +1,5 @@
 import { useRef, type ReactNode } from 'react';
-import { event, labels } from '../data/event';
+import { event, labels, venue } from '../data/event';
 import { gsap, useGSAP } from '../lib/gsap';
 import { revealRise } from '../lib/reveal';
 import { bindNumbers } from '../lib/typography';
@@ -47,7 +47,7 @@ export function Details() {
         <div className="detail-grid grid gap-3 md:grid-cols-3 md:gap-4">
           <Card icon={<CalendarIcon className="size-7" />} label={labels.date} value={event.date} />
           <Card icon={<LampClockIcon className="size-7" />} label={labels.time} value={event.time} />
-          <Card icon={<PinIcon className="size-7" />} label={labels.venue} value={event.venueLabel} />
+          <Card icon={<PinIcon className="size-7" />} label={labels.venue} value={venue.label} />
         </div>
 
         <div data-reveal className="mt-16 md:mt-20">
